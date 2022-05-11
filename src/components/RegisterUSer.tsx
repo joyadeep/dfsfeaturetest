@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import { Button, Col, Container, Form, FormGroup, Row } from "react-bootstrap";
-
+import inputs from '../utils/RegFormAtts';
 import {appendErrors, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 const schema=yup.object().shape({
-    fname:yup.string().required("First name cannot be empty"),
+    fname:yup.string().required("First name cannot be empty").matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
     mname:yup.string(),
-    lname:yup.string().required("Last name cannot be empty"),
-    email:yup.string().email().required("Email cannot be empty"),
-    password:yup.string().required("password cannot be empty"),
+    lname:yup.string().required("Last name cannot be empty").matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
+    email:yup.string().email("Enter valid email").required("Email cannot be empty"),
+    password:yup.string().required("password cannot be empty").min(8,"minimu 8 characters is required").max(15,"15 characters is limit") .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]$/,
+      "Must Contain One Uppercase, One Lowercase, One Number and one special case Character"
+    ),
     role:yup.string().required("role cannot be empty")
 })
 
@@ -20,65 +23,19 @@ const RegisterUSer = () => {
         resolver:yupResolver(schema),mode:'all'
     })
 
-
-    // const [register, setRegister] = useState({
-    //     fname: "",
-    //     mname: "",
-    //     lname: "",
-    //     email: "",
-    //     password: "",
-    //     role: "",
-    //   });
-    
-    //   const handleChange = (e: any) => {
-    //     setRegister({ ...register, [e.target.name]: e.target.value });
-    //   };
     
       const submitEvent = (data:any) => {
         console.log(data);
       };
     
  
-      const inputs = [
-        {
-          label:"First Name",
-          type: "text",
-          placeholder: "First Name",
-          name: "fname",
-        },
-        {
-          label:"Middle Name",
-          type: "text",
-          placeholder: "Middle Name",
-          name: "mname",
-          },
-        {
-          label:"Last Name",
-          type: "text",
-          placeholder: "Last Name",
-          name: "lname",
-          },
-        {
-          label:"Email",
-          type: "email",
-          placeholder: "Email",
-          name: "email",
-          },
-        {
-          label:"Password",
-          type: "password",
-          placeholder: "Password",
-          name: "password",
-          },
-      ];
-    
       return (
         <div className="App">
           <Container fluid>
             <Row>
               <Col
                 sm={4}
-                className="mx-auto mt-3 mb-5 border border-black rounded-3 pb-2 bg-light shadow"
+                className="mx-auto mt-3 mb-3 border border-black rounded-3 pb-2 bg-light shadow"
               >
                 <Form onSubmit={handleSubmit(submitEvent)}>
                   <div className="text-center">
@@ -87,15 +44,15 @@ const RegisterUSer = () => {
                   {
                     inputs.map((item,index)=>{
                       return (
-                        <FormGroup key={index}>
-                        <Form.Label>{item.label}</Form.Label>
+                        <FormGroup key={index} className="mb-0">
+                        <Form.Label className="m-0">{item.label}</Form.Label>
                       <Form.Control
                         type={item.type}
                         placeholder={item.placeholder}
                         {...register(`${item.name}`)}
-                        className={errors.email && "border border-danger"}
+                        className={errors[item.name] && "border border-danger"}
                       />
-                      <div className='text-danger' style={{fontSize:"10px", height:"12px"}}>{errors.email?.message}</div>
+                      <div className='text-danger' style={{fontSize:"11px", height:"13px"}}>{errors[item.name]?.message}</div>
                         </FormGroup>
                       )
     
@@ -105,12 +62,7 @@ const RegisterUSer = () => {
                   
                   <FormGroup>
                     <Form.Label>Select Admin</Form.Label>
-                    <Form.Select
-                    //   onChange={handleChange}
-                    //   name="role"
-                    //   value={register.role}
-                    //   required
-                    >
+                    <Form.Select>
                       <option>Select Admin</option>
                       <option value="org_admin">ORGANIZATION ADMIN</option>
                       <option value="canteen_admin">CANTEEN ADMIN</option>
@@ -119,7 +71,7 @@ const RegisterUSer = () => {
                     <small className="text-danger invisible">Error here</small>
                   </FormGroup>
                   <div className="text-center w-full">
-                    <Button variant="primary" type="submit" className="px-2 fs-6">
+                    <Button variant="primary" type="submit" className="px-2 fs-6 fw-bold">
                       Register
                     </Button>
                   </div>
