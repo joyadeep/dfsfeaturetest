@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import RegisterUSer from "./components/RegisterUSer";
 import Userlist from "./components/Userlist";
+import FoodList from "./components/FoodList";
 
 function App() {
 
@@ -10,6 +11,7 @@ function App() {
 <>
 <RegisterUSer/>
 <Userlist/>
+<FoodList/>
 </>
   )
 }

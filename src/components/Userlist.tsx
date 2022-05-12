@@ -6,13 +6,13 @@ import {MdDelete} from 'react-icons/md'
 
 const Userlist = () => {
   return (
-    <Container className="bg-light ">
+    <Container fluid className="bg-light ">
       <Row>
         <Col>
         <div className='fw-bold fs-1'>
           Users
         </div>
-          <Table responsive="md" striped bordered hover className='rounded'>
+          <Table responsive="sm" striped bordered hover className='rounded'>
             <thead>
               <tr>
                 <th>
@@ -71,7 +71,7 @@ const Userlist = () => {
                 <td></td>
                 <td>Limbu</td>
                 <td>jlimbu@deerhold.org</td>
-                <td>SUPER ADMIN</td>
+                <td>ORGANIZATION ADMIN</td>
                 <td className='d-flex justify-content-between fs-3 text-white'>
                    <AiFillEye className='bg-warning rounded p-1 '/>
                    <FaUserEdit className='bg-primary rounded p-1'/>

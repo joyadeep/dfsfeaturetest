@@ -10,23 +10,24 @@ const schema=yup.object().shape({
     mname:yup.string(),
     lname:yup.string().required("Last name cannot be empty").matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field "),
     email:yup.string().email("Enter valid email").required("Email cannot be empty"),
-    password:yup.string().required("password cannot be empty").min(8,"minimu 8 characters is required").max(15,"15 characters is limit") .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]$/,
-      "Must Contain One Uppercase, One Lowercase, One Number and one special case Character"
-    ),
+    password:yup.string().required("password cannot be empty").min(8,"minimu 8 characters is required").max(15,"15 characters is limit"),
     role:yup.string().required("role cannot be empty")
 })
 
 const RegisterUSer = () => {
 
     const {register,handleSubmit,formState:{errors}}=useForm({
-        resolver:yupResolver(schema),mode:'all'
+        resolver:yupResolver(schema),mode:'onSubmit'
     })
 
     
-      const submitEvent = (data:any) => {
-        console.log(data);
-      };
+      // const submitEvent = (data:any) => {
+      //   alert("data saved!!")
+      //   console.log(data);
+      // };
+      const submitEvent=()=>{
+        return alert("dsfasdf");
+      }
     
  
       return (
@@ -61,9 +62,9 @@ const RegisterUSer = () => {
                   
                   
                   <FormGroup>
-                    <Form.Label>Select Admin</Form.Label>
+                    <Form.Label>Select User Type</Form.Label>
                     <Form.Select>
-                      <option>Select Admin</option>
+                      <option>Select User Type</option>
                       <option value="org_admin">ORGANIZATION ADMIN</option>
                       <option value="canteen_admin">CANTEEN ADMIN</option>
                       <option value="user">USER</option>
