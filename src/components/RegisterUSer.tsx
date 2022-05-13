@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Col, Container, Form, FormGroup, Row } from "react-bootstrap";
 import inputs from '../utils/RegFormAtts';
-import {appendErrors, useForm} from 'react-hook-form';
+import {appendErrors, useForm, UseFormRegister} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 

@@ -9,9 +9,9 @@ function App() {
 
   return (
 <>
-<RegisterUSer/>
+{/* <RegisterUSer/> */}
 <Userlist/>
-<FoodList/>
+{/* <FoodList/> */}
 </>
   )
 }
